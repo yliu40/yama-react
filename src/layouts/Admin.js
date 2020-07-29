@@ -12,7 +12,8 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 
-import routes from "routes.js";
+import { routesManager, routesTenant } from "routes.js";
+
 
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
@@ -21,9 +22,23 @@ import logo from "assets/img/reactlogo.png";
 
 let ps;
 
+const isManager = () => {
+  return false;
+}
+
+const routes = () => {
+  if (isManager()) {
+    return routesManager;
+  }
+  else {
+    return routesTenant;
+  }
+};
+
 const switchRoutes = (
   <Switch>
-    {routes.map((prop, key) => {
+    {routes().map((prop, key) => {
+
       if (prop.layout === "/admin") {
         return (
           <Route
@@ -99,7 +114,9 @@ export default function Admin({ ...rest }) {
   return (
     <div className={classes.wrapper}>
       <Sidebar
-        routes={routes}
+
+        routes={routes()}
+
         logoText={"Creative Tim"}
         logo={logo}
         image={image}
@@ -110,7 +127,9 @@ export default function Admin({ ...rest }) {
       />
       <div className={classes.mainPanel} ref={mainPanel}>
         <Navbar
-          routes={routes}
+
+          routes={routes()}
+
           handleDrawerToggle={handleDrawerToggle}
           {...rest}
         />
@@ -120,8 +139,10 @@ export default function Admin({ ...rest }) {
             <div className={classes.container}>{switchRoutes}</div>
           </div>
         ) : (
-          <div className={classes.map}>{switchRoutes}</div>
-        )}
+
+            <div className={classes.map}>{switchRoutes}</div>
+          )}
+
         {getRoute() ? <Footer /> : null}
         <FixedPlugin
           handleImageClick={handleImageClick}
