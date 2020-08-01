@@ -1,265 +1,338 @@
-import React from "react";
-// react plugin for creating charts
-import ChartistGraph from "react-chartist";
-// @material-ui/core
-import { makeStyles } from "@material-ui/core/styles";
-import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
-import Store from "@material-ui/icons/Store";
-import Warning from "@material-ui/icons/Warning";
-import DateRange from "@material-ui/icons/DateRange";
-import LocalOffer from "@material-ui/icons/LocalOffer";
-import Update from "@material-ui/icons/Update";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import AccessTime from "@material-ui/icons/AccessTime";
-import Accessibility from "@material-ui/icons/Accessibility";
-import BugReport from "@material-ui/icons/BugReport";
-import Code from "@material-ui/icons/Code";
-import Cloud from "@material-ui/icons/Cloud";
-// core components
+import React, {useState, useEffect, useRef} from 'react';
+import {TextField, Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
+import {
+    ItemButton
+} from "../../assets/jss/material-dashboard-react/views/dashboardStyle"
+import {API_ROOT, AUTH_HEADER} from "../../constants";
+import {func} from "prop-types";
+import Card from "components/Card/Card.js";
+import Button from "../../components/CustomButtons/Button";
+import CardHeader from "../../components/Card/CardHeader";
+import CardBody from "../../components/Card/CardBody";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import Table from "components/Table/Table.js";
-import Tasks from "components/Tasks/Tasks.js";
-import CustomTabs from "components/CustomTabs/CustomTabs.js";
-import Danger from "components/Typography/Danger.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardIcon from "components/Card/CardIcon.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
 
-import { bugs, website, server } from "variables/general.js";
+const token = JSON.parse(localStorage.getItem('TOKEN_KEY')).token;
+const userName = JSON.parse(localStorage.getItem('TOKEN_KEY')).username ;
+const userType = JSON.parse(localStorage.getItem('TOKEN_KEY')).userType;
+function getItems(setItems) {
+    //fetch(`${API_ROOT}/announcement`, {
+    fetch(`${API_ROOT}/announcement`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `${AUTH_HEADER} ${token}`,
+        },
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts.js";
-
-import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
-
-const useStyles = makeStyles(styles);
-
-export default function Dashboard() {
-  const classes = useStyles();
-  return (
-    <div>
-      <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="warning" stats icon>
-              <CardIcon color="warning">
-                <Icon>content_copy</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>Used Space</p>
-              <h3 className={classes.cardTitle}>
-                49/50 <small>GB</small>
-              </h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <Danger>
-                  <Warning />
-                </Danger>
-                <a href="#pablo" onClick={e => e.preventDefault()}>
-                  Get more space
-                </a>
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="success" stats icon>
-              <CardIcon color="success">
-                <Store />
-              </CardIcon>
-              <p className={classes.cardCategory}>Revenue</p>
-              <h3 className={classes.cardTitle}>$34,245</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <DateRange />
-                Last 24 Hours
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="danger" stats icon>
-              <CardIcon color="danger">
-                <Icon>info_outline</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>Fixed Issues</p>
-              <h3 className={classes.cardTitle}>75</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <LocalOffer />
-                Tracked from Github
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Accessibility />
-              </CardIcon>
-              <p className={classes.cardCategory}>Followers</p>
-              <h3 className={classes.cardTitle}>+245</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <Update />
-                Just Updated
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-      </GridContainer>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="success">
-              <ChartistGraph
-                className="ct-chart"
-                data={dailySalesChart.data}
-                type="Line"
-                options={dailySalesChart.options}
-                listener={dailySalesChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Daily Sales</h4>
-              <p className={classes.cardCategory}>
-                <span className={classes.successText}>
-                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
-                </span>{" "}
-                increase in today sales.
-              </p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="warning">
-              <ChartistGraph
-                className="ct-chart"
-                data={emailsSubscriptionChart.data}
-                type="Bar"
-                options={emailsSubscriptionChart.options}
-                responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                listener={emailsSubscriptionChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="danger">
-              <ChartistGraph
-                className="ct-chart"
-                data={completedTasksChart.data}
-                type="Line"
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Completed Tasks</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-      </GridContainer>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={6}>
-          <CustomTabs
-            title="Tasks:"
-            headerColor="primary"
-            tabs={[
-              {
-                tabName: "Bugs",
-                tabIcon: BugReport,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[0, 3]}
-                    tasksIndexes={[0, 1, 2, 3]}
-                    tasks={bugs}
-                  />
-                )
-              },
-              {
-                tabName: "Website",
-                tabIcon: Code,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[0]}
-                    tasksIndexes={[0, 1]}
-                    tasks={website}
-                  />
-                )
-              },
-              {
-                tabName: "Server",
-                tabIcon: Cloud,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[1]}
-                    tasksIndexes={[0, 1, 2]}
-                    tasks={server}
-                  />
-                )
-              }
-            ]}
-          />
-        </GridItem>
-        <GridItem xs={12} sm={12} md={6}>
-          <Card>
-            <CardHeader color="warning">
-              <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
-              <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
-              </p>
-            </CardHeader>
-            <CardBody>
-              <Table
-                tableHeaderColor="warning"
-                tableHead={["ID", "Name", "Salary", "Country"]}
-                tableData={[
-                  ["1", "Dakota Rice", "$36,738", "Niger"],
-                  ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                  ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                  ["4", "Philip Chaney", "$38,735", "Korea, South"]
-                ]}
-              />
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
-    </div>
-  );
+    })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Failed to load posts');
+        })
+        .then(data => {
+            setItems(data);
+        }).catch((e) => {
+        console.error(e);
+    });
 }
+
+function updateItem(formData,announcementId) {
+    //fetch(`${API_ROOT}/announcement`, {
+    return fetch(`${API_ROOT}/announcement/${announcementId}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `${AUTH_HEADER} ${token}`,
+            'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
+            "Content-Type":  "application/json"
+        },
+        body: formData,
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error("Failed to update")
+    }).then(data => {
+        console.log(data);
+        return true;
+    }).catch(err => {
+        console.log(err);
+        return false;
+    })
+
+}
+
+function createItem(formData) {
+    console.log(formData);
+    //fetch(`${API_ROOT}/announcement`, {
+    return fetch(`${API_ROOT}/announcement`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `${AUTH_HEADER} ${token}`,
+            'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
+            "Content-Type":  "application/json"
+        },
+        body: formData,
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error("Failed to create")
+    }).then(data => {
+        console.log(data);
+        return true;
+    }).catch(err => {
+        console.log(err);
+        return false;
+    })
+
+}
+function deleteItem(formData,announcementId) {
+//function deleteItem(formData) {
+    //fetch(`${API_ROOT}/announcement`, {
+
+    return fetch(`${API_ROOT}/announcement/${announcementId}`, {
+        method: 'Delete',
+        headers: {
+            'Authorization': `${AUTH_HEADER} ${token}`,
+            'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
+            "Content-Type":  "application/json"
+        },
+        body: formData,
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error("Failed to delete")
+    }).then(data => {
+        console.log(data);
+        return true;
+    }).catch(err => {
+        console.log(err);
+        return false;
+    })
+}
+
+function DashBoard() {
+    //const defaultEndDay = "2020-07-30";
+    let date = new Date();
+
+    // console.log("day test:"+date.getFullYear() + "-" + (date.getMonth() + 1) + "-" +date.getDate());
+    //console.log("day test:"+date.getDate());
+    let defaultEndDay = "";
+    if (date.getMonth() < 10) {
+        defaultEndDay = date.getFullYear() + "-0" + (date.getMonth() + 1);
+    } else {
+        defaultEndDay = date.getFullYear() + "-" + (date.getMonth() + 1);
+    }
+    if (date.getDate() < 10) {
+        defaultEndDay = defaultEndDay + "-0" + date.getUTCDate();
+    } else {
+        defaultEndDay = defaultEndDay + "-" + date.getUTCDate();
+    }
+    console.log("day test:" + defaultEndDay);
+    const [dashboards, setDashboards] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [editTitle, setEditTitle] = useState("");
+    const [editDetail, setEditDetail] = useState("");
+    const [editEndDate, setEditEndDate] = useState("");
+    const [announcementId,setAnnouncementId] = useState("");
+    const manager = userType === "Admin" ? true : false;
+    const [title, setTitle] = useState('');
+    const [detail, setDetail] = useState('');
+    const [endDate, setEndDate] = useState(defaultEndDay);
+    const [info, setInfo] = useState('');
+    const test = useRef(null)
+    const mainColor = "info";
+    const userId = "1";
+    useEffect(() => {
+        getItems(setDashboards);
+    });
+    return (
+        <div>
+            {
+                manager ? <Button color={mainColor} onClick={() => setOpen(true)}>create</Button> : <p></p>
+            }
+            <Dialog open={openEdit} onClose={() => setOpenEdit(false)} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Edit dashboard</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        label="Title"
+                        fullWidth
+                        value={editTitle}
+                        //inputProps={{ ref: input => this.test = input}}
+                        required
+                        onChange={(event) => setEditTitle(event.target.value)}
+                        //onChange={(event) => console.log("test:"+ test.current)}
+                    />
+                    <TextField
+                        margin="dense"
+                        label="detail"
+                        multiline
+                        rows={4}
+                        fullWidth
+                        value={editDetail}
+                        onChange={(event) => setEditDetail(event.target.value)}
+                    />
+
+                    <TextField
+                        label="EndDisplayDay"
+                        type="date"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={editEndDate}
+                        onChange={(event) => setEditEndDate(event.target.value)}
+                    />
+                    <p>{info}</p>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => {
+                        setInfo("");
+                        setOpenEdit(false);
+                    }} color={mainColor}>
+                        Cancel
+                    </Button>
+                    <Button onClick={() => {
+                        if (editTitle == "") {
+                            setInfo("*Title is required!")
+                        } else {
+                            const formData = new FormData();
+                            formData.set('title', editTitle);
+                            formData.set('detail', editDetail);
+                            formData.set('endDate', editEndDate);
+                            formData.set('userId', userId);
+                            formData.set('userName', userName);
+                            let suc = updateItem(formData, announcementId);
+                            suc ? setOpenEdit(false) : console.log(suc);
+                        }
+
+                    }} color={mainColor}>
+                        Save
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">create dashboard</DialogTitle>
+                <DialogContent>
+
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        label="Title"
+                        fullWidth
+                        value={title}
+                        //inputProps={{ ref: input => this.test = input}}
+                        required
+                        onChange={(event) => setTitle(event.target.value)}
+                        //onChange={(event) => console.log("test:"+ test.current)}
+                    />
+                    <TextField
+                        margin="dense"
+                        label="detail"
+                        multiline
+                        rows={4}
+                        fullWidth
+                        value={detail}
+                        onChange={(event) => setDetail(event.target.value)}
+                    />
+
+                    <TextField
+                        label="EndDisplayDay"
+                        type="date"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={endDate}
+                        onChange={(event) => setEndDate(event.target.value)}
+                    />
+                    <p>{info}</p>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => {
+                        setOpen(false);
+                        setEndDate(defaultEndDay);
+                        setDetail("");
+                        setTitle("");
+                        setInfo("");
+                    }} color={mainColor}>
+                        Cancel
+                    </Button>
+                    <Button onClick={() => {
+                        if (title == "") {
+                            setInfo("*Title is required!")
+                        } else {
+                            const formData = new FormData();
+                            formData.set('title', title);
+                            formData.set('detail', detail);
+                            formData.set('endDate', endDate);
+                            formData.set('userId', userId);
+                            formData.set('userName', userName);
+                            console.log("test:" + title + detail + endDate);
+                            let suc = createItem(formData);
+                            setEndDate(defaultEndDay);
+                            setDetail("");
+                            setTitle("");
+                            setInfo("");
+                            suc ? setOpen(false) : console.log(suc);
+                        }
+
+                    }} color={mainColor}>
+                        Save
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <GridContainer spacing={2}>
+                {
+                    dashboards.map((item) => (
+
+                        <GridItem xs={12} sm={6} md={3}>
+                            <Card>
+                                <CardHeader color={mainColor}>
+                                    <p>{item.title}</p>
+                                </CardHeader>
+
+                                <CardBody>
+                                    {/*<h4>{item.title}</h4>*/}
+                                    <p>{item.detail}</p>
+                                    {
+                                        manager ? <ItemButton onClick={() => {
+                                            setEditTitle(item.title);
+                                            setEditDetail(item.detail);
+                                            setEditEndDate(item.endDate);
+                                            setAnnouncementId(item.announcementId)
+                                            console.log("dddd:" + item.endDate)
+                                            setOpenEdit(true)
+                                        }}>
+                                            edit
+                                        </ItemButton> : <p></p>
+                                    }
+                                    {
+                                        manager ? <ItemButton onClick={() => {
+                                            const formData = new FormData();
+                                            // formData.set('announcementId', item.announcementId);
+                                            // formData.set('userId', userId);
+                                            //formData.set('userName', userName);
+                                            //let suc = deleteItem(formData);
+                                            let suc = deleteItem(formData,item.announcementId);
+                                            getItems(setDashboards);
+                                            suc ? console.log("success") : console.log("Failed");
+                                        }}>
+                                            delete
+                                        </ItemButton> : <p></p>
+                                    }
+                                </CardBody>
+                            </Card>
+                        </GridItem>
+
+                    ))
+                }
+            </GridContainer>
+        </div>
+    );
+}
+
+export default DashBoard;
