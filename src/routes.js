@@ -75,7 +75,7 @@ export const routesTenant = [
   },
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Announcements",
     rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: DashboardPage,
@@ -117,7 +117,7 @@ export const routesManager = [
   },
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Announcements",
     rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: DashboardPage,
