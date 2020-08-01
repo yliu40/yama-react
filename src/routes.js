@@ -39,45 +39,19 @@ import RTLPage from "views/RTLPage/RTLPage.js";
 
 // self
 import TenantPay from "views/Payments/TenantPay.js";
-import TenantPayPages from "views/Payments/TenantPayPages.js";
 import OfficeCheckPay from "views/Payments/OfficeCheckPay.js";
-import TenantPayHistory from "views/Payments/TenantPayHistory.js";
 
 import PackageManager from "./views/Package/PackageManager";
 import PackageResident from "./views/Package/PackageResident";
 
 export const routesTenant = [
-
-  {
-    path: "/officeCheckPayment",
-    name: "Office Check Payment History",
-    rtlName: "مكتب الدفع تاريخ الشيكات",
-    icon: Dashboard,
-    component: OfficeCheckPay,
-    layout: "/admin"
-  },
+  
   {
     path: "/tenantPayment",
     name: "Tenant Payment",
     rtlName: "دفع المستأجر",
     icon: Dashboard,
     component: TenantPay,
-    layout: "/admin"
-  },
-  {
-    path: "/tenantPaymentPages",
-    name: "Tenant Payment Page",
-    rtlName: "صفحات دفع المستأجر",
-    icon: Dashboard,
-    component: TenantPayPages,
-    layout: "/admin"
-  },
-  {
-    path: "/tenantPayHistory",
-    name: "Tenant Payment History",
-    rtlName: "تاريخ دفع المستأجر\n",
-    icon: Dashboard,
-    component: TenantPayHistory,
     layout: "/admin"
   },
   {
@@ -170,6 +144,14 @@ export const routesTenant = [
 
 
 export const routesManager = [
+    {
+    path: "/officeCheckPayment",
+    name: "Check Tenant Payment History",
+    rtlName: "مكتب الدفع تاريخ الشيكات",
+    icon: Dashboard,
+    component: OfficeCheckPay,
+    layout: "/admin"
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
