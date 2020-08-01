@@ -1,36 +1,52 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
-import {Link} from "react-router-dom"
 
-
+// core components
+import GridItem from "components/Grid/GridItem.js";
+import GridContainer from "components/Grid/GridContainer.js";
+import Table from "components/Table/Table.js";
+import Card from "components/Card/Card.js";
+import CardBody from "components/Card/CardBody.js";
 
 class OfficeCheckPay extends Component {
 
-    state = [
-        { label: "Apple", value: 1 },
-        { label: "Facebook", value: 2 },
-        { label: "Netflix", value: 3 },
-        { label: "Tesla", value: 4 },
-        { label: "Amazon", value: 5 },
-        { label: "Alphabet", value: 6 },
-    ];
+    state = {
+        username: "apple",
+        aptNo: [{label:251, value:1}, {label:252, value:2}],
+        chosenAptNo: 251,
+        paymentManagerHistory :
+            [
+                ["2020-03-12", "$1,200"],
+                ["2020-02-8", "$1,200"]
+            ]
+    }
 
     render() {
+
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-4"></div>
                     <div className="col-md-4">
-                        <Select options={ this.state } />
+                        <Select options={ this.state.aptNo } />
                     </div>
                     <div className="col-md-4"></div>
                 </div>
-                <button>
-                    <Link to="/admin/tenantPayHistory">Check</Link>
-                </button>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <Card>
+                            <CardBody>
+                                <Table
+                                    tableHeaderColor="primary"
+                                    tableHead={["Date", "Paid Amount"]}
+                                    tableData={this.state.paymentManagerHistory}
+                                />
+                            </CardBody>
+                        </Card>
+                    </GridItem>
+                </GridContainer>
             </div>
         );
     }
 }
-
 export default OfficeCheckPay;
