@@ -165,7 +165,6 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
         this.state = {
             balance: this.props.balance,
             amount: this.props.amount,
-
             activeStep: 0,
             firstName: "start",
             lastName: "",

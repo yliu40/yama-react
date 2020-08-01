@@ -22,7 +22,6 @@ class OfficeCheckPay extends Component {
     }
 
     render() {
-
         return (
             <div className="container">
                 <div className="row">
@@ -49,4 +48,5 @@ class OfficeCheckPay extends Component {
         );
     }
 }
+
 export default OfficeCheckPay;

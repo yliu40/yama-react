@@ -515,7 +515,6 @@ footer ul li a:hover {
 
 
 
-
 .chat-fixed-plugin {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 300;
@@ -606,6 +605,7 @@ footer ul li a:hover {
   transform: translateY(-13%);
   transform-origin: 0 0;
 }
+
 
 
 * {

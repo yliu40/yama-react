@@ -16,17 +16,13 @@
 
 */
 // @material-ui/icons
+import Sms from "@material-ui/icons/Sms";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
-import BubbleChart from "@material-ui/icons/BubbleChart";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Notifications from "@material-ui/icons/Notifications";
-import Unarchive from "@material-ui/icons/Unarchive";
-import Language from "@material-ui/icons/Language";
-import InboxIcon from '@material-ui/icons/Inbox';
 // core components/views for Admin layout
+import Chat from "views/Chat/Chat.js";
 import DashboardPage from "views/Dashboard/Dashboard.js";
+
 import UserProfile from "views/UserProfile/UserProfile.js";
 import TableList from "views/TableList/TableList.js";
 import Typography from "views/Typography/Typography.js";
@@ -40,6 +36,13 @@ import RTLPage from "views/RTLPage/RTLPage.js";
 // self
 import TenantPay from "views/Payments/TenantPay.js";
 import OfficeCheckPay from "views/Payments/OfficeCheckPay.js";
+
+import UserAccount from "views/UserAccount/UserAccount.js";
+import EditAccount from "views/UserAccount/EditAccount.js";
+import UpdatePage from "views/UserAccount/UpdatePage.js";
+
+import InboxIcon from '@material-ui/icons/Inbox';
+
 
 import PackageManager from "./views/Package/PackageManager";
 import PackageResident from "./views/Package/PackageResident";
@@ -55,6 +58,38 @@ export const routesTenant = [
     layout: "/admin"
   },
   {
+    path: "/officeCheckPayment",
+    name: "Office Check Payment History",
+    rtlName: "مكتب الدفع تاريخ الشيكات",
+    icon: Dashboard,
+    component: OfficeCheckPay,
+    layout: "/admin"
+  },
+  {
+    path: "/tenantPayment",
+    name: "Tenant Payment",
+    rtlName: "دفع المستأجر",
+    icon: Dashboard,
+    component: TenantPay,
+    layout: "/admin"
+  },
+  {
+    path: "/tenantPaymentPages",
+    name: "Tenant Payment Page",
+    rtlName: "صفحات دفع المستأجر",
+    icon: Dashboard,
+    component: TenantPayPages,
+    layout: "/admin"
+  },
+  {
+    path: "/tenantPayHistory",
+    name: "Tenant Payment History",
+    rtlName: "تاريخ دفع المستأجر\n",
+    icon: Dashboard,
+    component: TenantPayHistory,
+    layout: "/admin"
+  },
+  {
     path: "/dashboard",
     name: "Dashboard",
     rtlName: "لوحة القيادة",
@@ -63,74 +98,19 @@ export const routesTenant = [
     layout: "/admin"
   },
   {
-    path: "/user",
-    name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: Person,
-    component: UserProfile,
+    path: "/chat",
+    name: "Chat",
+    rtlName: "لوحة القيادة",
+    icon: Sms,
+    component: Chat,
     layout: "/admin"
   },
   {
-    path: "/table",
-    name: "Table List",
+    path: "/update",
+    name: "Update Account",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
-    component: TableList,
-    layout: "/admin"
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    rtlName: "طباعة",
-    icon: LibraryBooks,
-    component: Typography,
-    layout: "/admin"
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    rtlName: "الرموز",
-    icon: BubbleChart,
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    rtlName: "خرائط",
-    icon: LocationOn,
-    component: Maps,
-    layout: "/admin"
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    rtlName: "إخطارات",
-    icon: Notifications,
-    component: NotificationsPage,
-    layout: "/admin"
-  },
-  {
-    path: "/rtl-page",
-    name: "RTL Support",
-    rtlName: "پشتیبانی از راست به چپ",
-    icon: Language,
-    component: RTLPage,
-    layout: "/rtl"
-  },
-  {
-    path: "/upgrade-to-pro",
-    name: "Upgrade To PRO",
-    rtlName: "التطور للاحترافية",
-    icon: Unarchive,
-    component: UpgradeToPro,
-    layout: "/admin"
-  },
-  {
-    path: "/package",
-    name: "Package",
-    icon: InboxIcon,
-    component: PackageManager,
+    component: UpdatePage,
     layout: "/admin"
   },
   {
@@ -139,9 +119,8 @@ export const routesTenant = [
     icon: InboxIcon,
     component: PackageResident,
     layout: "/admin"
-  }
+  },
 ];
-
 
 export const routesManager = [
     {
@@ -161,67 +140,27 @@ export const routesManager = [
     layout: "/admin"
   },
   {
-    path: "/table",
-    name: "Table List",
+    path: "/chat",
+    name: "Chat",
+    rtlName: "لوحة القيادة",
+    icon: Sms,
+    component: Chat,
+    layout: "/admin"
+  },
+  {
+    path: "/edit_delete_account",
+    name: "Edit / Delete Account",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
-    component: TableList,
+    component: EditAccount,
     layout: "/admin"
   },
   {
-    path: "/user",
-    name: "User Profile",
+    path: "/create_account",
+    name: "Create Account",
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
-    component: UserProfile,
-    layout: "/admin"
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    rtlName: "طباعة",
-    icon: LibraryBooks,
-    component: Typography,
-    layout: "/admin"
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    rtlName: "الرموز",
-    icon: BubbleChart,
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    rtlName: "خرائط",
-    icon: LocationOn,
-    component: Maps,
-    layout: "/admin"
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    rtlName: "إخطارات",
-    icon: Notifications,
-    component: NotificationsPage,
-    layout: "/admin"
-  },
-  {
-    path: "/rtl-page",
-    name: "RTL Support",
-    rtlName: "پشتیبانی از راست به چپ",
-    icon: Language,
-    component: RTLPage,
-    layout: "/rtl"
-  },
-  {
-    path: "/upgrade-to-pro",
-    name: "Upgrade To PRO",
-    rtlName: "التطور للاحترافية",
-    icon: Unarchive,
-    component: UpgradeToPro,
+    component: UserAccount,
     layout: "/admin"
   },
   {
@@ -230,6 +169,6 @@ export const routesManager = [
     icon: InboxIcon,
     component: PackageManager,
     layout: "/admin"
-  }
+  },
 ];
 
