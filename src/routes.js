@@ -24,6 +24,7 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import Notifications from "@material-ui/icons/Notifications";
 import Unarchive from "@material-ui/icons/Unarchive";
 import Language from "@material-ui/icons/Language";
+import InboxIcon from '@material-ui/icons/Inbox';
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
@@ -35,12 +36,15 @@ import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
+
 // self
 import TenantPay from "views/Payments/TenantPay.js";
 import TenantPayPages from "views/Payments/TenantPayPages.js";
 import OfficeCheckPay from "views/Payments/OfficeCheckPay.js";
 import TenantPayHistory from "views/Payments/TenantPayHistory.js";
 
+import PackageManager from "./views/Package/PackageManager";
+import PackageResident from "./views/Package/PackageResident";
 
 export const routesTenant = [
 
@@ -147,6 +151,20 @@ export const routesTenant = [
     icon: Unarchive,
     component: UpgradeToPro,
     layout: "/admin"
+  },
+  {
+    path: "/package",
+    name: "Package",
+    icon: InboxIcon,
+    component: PackageManager,
+    layout: "/admin"
+  },
+  {
+    path: "/packageResident",
+    name: "PackageResident",
+    icon: InboxIcon,
+    component: PackageResident,
+    layout: "/admin"
   }
 ];
 
@@ -222,6 +240,13 @@ export const routesManager = [
     rtlName: "التطور للاحترافية",
     icon: Unarchive,
     component: UpgradeToPro,
+    layout: "/admin"
+  },
+  {
+    path: "/package",
+    name: "Package",
+    icon: InboxIcon,
+    component: PackageManager,
     layout: "/admin"
   }
 ];
