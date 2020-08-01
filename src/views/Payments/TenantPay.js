@@ -1,49 +1,54 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
-import GridContainer from "../../components/Grid/GridContainer"
-import Card from "../../components/Card/Card"
-import CardBody from "../../components/Card/CardBody"
-import GridItem from "../../components/Grid/GridItem"
-import Button from "components/CustomButtons/Button.js";
+import TenantPayFirst from "views/Payments/TenantPayFirst.js";
+import HorizontalLabelPositionBelowStepper from "views/Payments/HorizontalLabelPositionBelowStepper.js";
+import TenantPayHistory from "views/Payments/TenantPayHistory.js";
 
 class TenantPay extends Component {
-    state = {
-        username: "apple",
-        balance: 3600,
-        address: "xxx xxx xxx"
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            username : "apple",
+            balance: 3600,
+            amount: 3000,
+            isShowBalance: true,
+            isShowHistory: false
+        }
+        this.triggerIsPayState = this.triggerIsPayState.bind(this);
+        this.triggerIsHistoryState = this.triggerIsHistoryState.bind(this);
+    }
+
+    triggerIsPayState = () => {
+        this.setState({
+            ...this.state,
+            isShowBalance: false,
+            isShowHistory: false
+        })
+    }
+
+    triggerIsHistoryState = () => {
+        this.setState({
+            ...this.state,
+            isShowHistory: true,
+            isShowBalance: false,
+        })
     }
 
     render() {
+
         return (
             <div>
-                <GridContainer>
-                    <Card>
-                        <CardBody>
-                            <GridContainer direction="column">
-                                <GridItem >
-                                    <div className = "userAddress">
-                                        Property Address: {this.state.address}
-                                    </div>
-                                </GridItem>
-                                <GridItem xs={12} sm={12} md={12}>
-                                    <div className = "payBlock">
-                                        <h2>Your Current Balance</h2>
-                                        <div className = "payContainer">
-                                            <div className = "payColumn1">$ {this.state.balance}</div>
-                                            <Link to="/admin/tenantPaymentPages">
-                                                <Button color="primary">Pay Now</Button>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </GridItem>
-                                <GridItem xs={12} sm={12} md={12}>
-                                    <Link className = "payHistory" to="/admin/tenantPayHistory">Payment History</Link>
-                                </GridItem>
-                            </GridContainer>
-                        </CardBody>
-                    </Card >
-                </GridContainer>
+                {this.state.isShowBalance  && !this.state.isShowHistory && <TenantPayFirst isSB={this.triggerIsPayState}
+                                                                                           isSH={this.triggerIsHistoryState}
+                                                                                           username={this.state.username}
+                                                                                           balance={this.state.balance}
+                                                                                           amount={this.state.amount}
+                />}
 
+                {!this.state.isShowBalance && !this.state.isShowHistory  && <HorizontalLabelPositionBelowStepper balance={this.state.balance}
+                                                                                                                 amount={this.state.amount}/>}
+
+                {this.state.isShowHistory && <TenantPayHistory username={this.state.username}/>}
             </div>
         );
     }

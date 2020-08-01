@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {withStyles} from '@material-ui/styles';
 import {makeStyles} from "@material-ui/core/styles";
 import Stepper from '@material-ui/core/Stepper';
@@ -163,7 +163,8 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            balance: 3600,
+            balance: this.props.balance,
+            amount: this.props.amount,
             activeStep: 0,
             firstName: "start",
             lastName: "",
@@ -215,11 +216,12 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
 
     setPaymentAmount(e) {
         this.setState({paymentAmount: +e.target.value});
+        this.setState({amount: this.state.balance-e.target.value});
     }
 
     render() {
         const {classes} = this.props;
-        console.log(this.state.paymentAmount);
+        console.log(this.state.amount);
         return (
             <div className={classes.root}>
                 <Stepper activeStep={this.state.activeStep} alternativeLabel>

@@ -46,11 +46,12 @@ class TenantPayHistory extends React.Component {
     constructor(props) {
         super(props);
         this.state ={
-            history:
+            username: this.props.username,
+            address: "222 5th ave ne",
+            paymentTenantHistory:
                 [
-                ["xxx xxx", "$36,738", ""],
-                ["xxx xxx", "$23,789", ""],
-                ["xxx xxx", "$56,142", ""]
+                ["2020-03-12", "$1,200"],
+                ["2020-02-8", "$1,200"]
             ]
         }
     }
@@ -66,14 +67,14 @@ class TenantPayHistory extends React.Component {
                         <CardHeader color="primary">
                             <h4 className={classes.cardTitleWhite}>Payment History Table</h4>
                             <p className={classes.cardCategoryWhite}>
-                                Address: xxx xxx xxx
+                                Address: {this.state.address}
                             </p>
                         </CardHeader>
                         <CardBody>
                             <Table
                                 tableHeaderColor="primary"
-                                tableHead={["Date", "Paid Amount", "Details"]}
-                                tableData={this.state.history}
+                                tableHead={["Date", "Paid Amount"]}
+                                tableData={this.state.paymentTenantHistory}
                             />
                         </CardBody>
                     </Card>

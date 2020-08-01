@@ -22,23 +22,41 @@ import Person from "@material-ui/icons/Person";
 // core components/views for Admin layout
 import Chat from "views/Chat/Chat.js";
 import DashboardPage from "views/Dashboard/Dashboard.js";
+
+import UserProfile from "views/UserProfile/UserProfile.js";
+import TableList from "views/TableList/TableList.js";
+import Typography from "views/Typography/Typography.js";
+import Icons from "views/Icons/Icons.js";
+import Maps from "views/Maps/Maps.js";
+import NotificationsPage from "views/Notifications/Notifications.js";
+import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
+// core components/views for RTL layout
+import RTLPage from "views/RTLPage/RTLPage.js";
+
+// self
+import TenantPay from "views/Payments/TenantPay.js";
+import OfficeCheckPay from "views/Payments/OfficeCheckPay.js";
+
 import UserAccount from "views/UserAccount/UserAccount.js";
 import EditAccount from "views/UserAccount/EditAccount.js";
 import UpdatePage from "views/UserAccount/UpdatePage.js";
 
 import InboxIcon from '@material-ui/icons/Inbox';
 
-// self
-import TenantPay from "views/Payments/TenantPay.js";
-import TenantPayPages from "views/Payments/TenantPayPages.js";
-import OfficeCheckPay from "views/Payments/OfficeCheckPay.js";
-import TenantPayHistory from "views/Payments/TenantPayHistory.js";
 
 import PackageManager from "./views/Package/PackageManager";
 import PackageResident from "./views/Package/PackageResident";
 
 export const routesTenant = [
-
+  
+  {
+    path: "/tenantPayment",
+    name: "Tenant Payment",
+    rtlName: "دفع المستأجر",
+    icon: Dashboard,
+    component: TenantPay,
+    layout: "/admin"
+  },
   {
     path: "/officeCheckPayment",
     name: "Office Check Payment History",
@@ -105,6 +123,14 @@ export const routesTenant = [
 ];
 
 export const routesManager = [
+    {
+    path: "/officeCheckPayment",
+    name: "Check Tenant Payment History",
+    rtlName: "مكتب الدفع تاريخ الشيكات",
+    icon: Dashboard,
+    component: OfficeCheckPay,
+    layout: "/admin"
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
