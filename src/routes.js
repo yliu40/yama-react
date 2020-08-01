@@ -74,22 +74,6 @@ export const routesTenant = [
     layout: "/admin"
   },
   {
-    path: "/tenantPaymentPages",
-    name: "Tenant Payment Page",
-    rtlName: "صفحات دفع المستأجر",
-    icon: Dashboard,
-    component: TenantPayPages,
-    layout: "/admin"
-  },
-  {
-    path: "/tenantPayHistory",
-    name: "Tenant Payment History",
-    rtlName: "تاريخ دفع المستأجر\n",
-    icon: Dashboard,
-    component: TenantPayHistory,
-    layout: "/admin"
-  },
-  {
     path: "/dashboard",
     name: "Dashboard",
     rtlName: "لوحة القيادة",
