@@ -16,6 +16,16 @@
 
 */
 // @material-ui/icons
+import Sms from "@material-ui/icons/Sms";
+import Dashboard from "@material-ui/icons/Dashboard";
+import Person from "@material-ui/icons/Person";
+// core components/views for Admin layout
+import Chat from "views/Chat/Chat.js";
+import DashboardPage from "views/Dashboard/Dashboard.js";
+import UserAccount from "views/UserAccount/UserAccount.js";
+import EditAccount from "views/UserAccount/EditAccount.js";
+import UpdatePage from "views/UserAccount/UpdatePage.js";
+
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
@@ -86,6 +96,22 @@ export const routesTenant = [
     rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: DashboardPage,
+    layout: "/admin"
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    rtlName: "لوحة القيادة",
+    icon: Sms,
+    component: Chat,
+    layout: "/admin"
+  },
+  {
+    path: "/update",
+    name: "Update Account",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: UpdatePage,
     layout: "/admin"
   },
   {
@@ -168,7 +194,6 @@ export const routesTenant = [
   }
 ];
 
-
 export const routesManager = [
   {
     path: "/dashboard",
@@ -179,6 +204,30 @@ export const routesManager = [
     layout: "/admin"
   },
   {
+    path: "/chat",
+    name: "Chat",
+    rtlName: "لوحة القيادة",
+    icon: Sms,
+    component: Chat,
+    layout: "/admin"
+  },
+  {
+    path: "/edit_delete_account",
+    name: "Edit / Delete Account",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: EditAccount,
+    layout: "/admin"
+  },
+  {
+    path: "/create_account",
+    name: "Create Account",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: Person,
+    component: UserAccount,
+    layout: "/admin"
+  },
+];
     path: "/table",
     name: "Table List",
     rtlName: "قائمة الجدول",
