@@ -101,7 +101,7 @@ export const routesTenant = [
     icon: InboxIcon,
     component: PackageResident,
     layout: "/admin"
-  }
+  },
 ];
 
 export const routesManager = [
@@ -143,6 +143,6 @@ export const routesManager = [
     icon: InboxIcon,
     component: PackageManager,
     layout: "/admin"
-  }
+  },
 ];
 
