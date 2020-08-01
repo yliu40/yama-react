@@ -26,6 +26,7 @@
     "react-swipeable-views": "0.13.9",
     "react-web-gifted-chat": "^0.6.7",
     "redux": "^4.0.5",
+    "styled-components": "^5.1.1",
     "use-immer": "^0.4.0",
     "use-socket.io-client": "^1.1.0"
   },
